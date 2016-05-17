@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app="JSONedit">
+<head>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.min.js"></script>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/directives.js"></script>
+    <script src="js/JSONedit.js"></script>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div id="mainView" ng-controller="MainViewCtrl">
+        <h2>MappingBuilder</h2>
+        
+        <div>
+            <form ng-submit="submit()" >
+                        Enter text and hit enter:
+                <div>
+            <textarea rows="4" cols="50" ng-model="inputString"></textarea>
+            <span class="blue" ng-if="!readSuccess">Not well-formed!</span>
+        </div> 
+                    <input type="text" ng-model="typeName" name="text" />
+                    <input type="submit" id="submit" value="Build Metadata" />
+                </form>
+
+            <span class="blue" ng-if="!tnameValid">Not specfied!</span>
+        </div> 
+        <div class="jsonView">
+            <json child="jsonData" default-collapsed="false" type="object"></json>
+        </div>
+
+        <hr>
+        <div>
+            <textarea id="jsonTextarea" ng-model="jsonString"></textarea>
+            <span class="red" ng-if="!wellFormed">JSON not well-formed!</span>
+        </div> 
+  </div>
+</body>
+</html>
