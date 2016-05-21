@@ -43,9 +43,9 @@ $scope.submit = function() {
             var metaTmp = {}; 
            //  metaTmp = fsettings;
             metaTmp.type_name = $scope.typeName;
-            metaTmp.field_name = item[0].value; 
+            metaTmp.field_name = item[0]; 
             metaTmp.order_no = i+1;
-            metaTmp.data_type = item[1].value;
+            metaTmp.data_type = item[1];
             metaTmp.display_label = item[0];
             metaTmp.view_length = 12;
             metaTmp.facet_interval = facetTypes[item[1]];
@@ -79,9 +79,21 @@ $scope.submit = function() {
     }
 };
     
-    $scope.$watch('jsonData', function(json) {
+$scope.buildMetaDataBulk = function() {
+    var jObject = JSON.parse($filter('json')($scope.jsonData));
+     var bulkInsert = "POST <idx_>/sys_fields/_bulk" + "\n" ;
+    for (var i = 0; i < jObject.length; i++) {
+        bulkInsert = bulkInsert + "{ \"index\" :{} }" + "\n" + JSON.stringify(jObject[i]) + "\n";
+    };
+    $scope.esMetaDataBulk = bulkInsert;
+
+};
+    
+/*    $scope.$watch('jsonData', function(json) {
         $scope.jsonString = $filter('json')(json);
-    }, true);
+    }, true); */
+    
+    
     $scope.$watch('jsonString', function(json) {
         try {
             $scope.jsonData = JSON.parse(json);

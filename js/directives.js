@@ -36,9 +36,8 @@ angular.module('JSONedit', ['ui.sortable'])
         var numberName = "Number"
 
         scope.valueTypes = [stringName, objectName, arrayName, refName, boolName, numberName];
-        scope.sortableOptions = {
-            axis: 'y'
-        };
+        scope.sortableOptions = { axis: 'y'};
+        
         if (scope.$parent.defaultCollapsed === undefined) {
             scope.collapsed = false;
         } else {

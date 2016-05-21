@@ -14,17 +14,23 @@
 <body>
 
     <div id="mainView" ng-controller="MainViewCtrl">
-        <h2>MappingBuilder</h2>
+        <h2>Metadata Editor</h2>
         
         <div>
             <form ng-submit="submit()" >
-                        Enter text and hit enter:
+                Enter JSON Here:
+                        <div>
+            <textarea id="jsonTextarea" ng-model="jsonString"></textarea>
+            <span class="red" ng-if="!wellFormed">JSON not well-formed!</span>
+        </div> 
+                        Paste Fields and Datatype list :
                 <div>
             <textarea rows="4" cols="50" ng-model="inputString"></textarea>
             <span class="blue" ng-if="!readSuccess">Not well-formed!</span>
         </div> 
-                    <input type="text" ng-model="typeName" name="text" />
-                    <input type="submit" id="submit" value="Build Metadata" />
+                    Enter Type Name: <input type="text" ng-model="typeName" name="text" />
+                <div><input type="submit" id="submit" value="Build Metadata" /></div>
+                    
                 </form>
 
             <span class="blue" ng-if="!tnameValid">Not specfied!</span>
@@ -32,12 +38,16 @@
         <div class="jsonView">
             <json child="jsonData" default-collapsed="false" type="object"></json>
         </div>
-
-        <hr>
-        <div>
-            <textarea id="jsonTextarea" ng-model="jsonString"></textarea>
-            <span class="red" ng-if="!wellFormed">JSON not well-formed!</span>
+        
+            <form ng-submit="buildMetaDataBulk()" >
+                Output:
+                        <div>
+            <textarea id="jsonTextarea" ng-model="esMetaDataBulk"></textarea>
+        
         </div> 
+                <div><input type="submit" id="buildMetaDataBulk" value="Build es Bulk Load" /></div>
+                    
+                </form>
   </div>
 </body>
 </html>
